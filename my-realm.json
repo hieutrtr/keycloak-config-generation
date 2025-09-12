@@ -1,0 +1,38 @@
+{
+  "realm": "my-basic-realm",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "my-first-client",
+      "secret": "a-secret-that-should-be-changed",
+      "publicClient": false,
+      "redirectUris": []
+    }
+  ],
+  "roles": [
+    {
+      "name": "default-user",
+      "description": "A basic user role."
+    }
+  ],
+  "users": [
+    {
+      "username": "jdoe",
+      "enabled": true,
+      "email": "john.doe@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "changeme",
+          "temporary": true
+        }
+      ],
+      "realmRoles": [
+        "default-user",
+        "offline_access"
+      ]
+    }
+  ]
+}

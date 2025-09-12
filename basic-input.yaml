@@ -1,0 +1,31 @@
+# Basic Keycloak Realm Configuration
+
+# The only top-level field that is strictly required is 'realm'.
+realm: "my-basic-realm"
+
+# The following sections are optional, but this example includes one of each.
+enabled: true
+
+clients:
+  - clientId: "my-first-client"
+    secret: "a-secret-that-should-be-changed"
+    # publicClient defaults to false
+    # redirectUris defaults to an empty list []
+
+roles:
+  - name: "default-user"
+    description: "A basic user role."
+
+users:
+  - username: "jdoe"
+    enabled: true
+    email: "john.doe@example.com"
+    firstName: "John"
+    lastName: "Doe"
+    credentials:
+      - type: "password"
+        value: "changeme"
+        temporary: true # User will be prompted to change password on first login
+    realmRoles:
+      - "default-user"
+      - "offline_access" # A default role often needed by clients

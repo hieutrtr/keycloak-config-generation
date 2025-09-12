@@ -65,10 +65,10 @@
 - [x] T017: Implement the CLI command in `src/keycloak_generator/cli.py` using `click`.
 
 ## Phase 3.4: Polish
-- [ ] T018: [P] Create the `YAML_GUIDE.md` documentation file.
-- [ ] T019: Add error handling to the CLI for file not found and invalid YAML errors.
-- [ ] T020: [P] Write unit tests for error handling in `tests/test_cli.py`.
-- [ ] T021: Finalize the `README.md` with updated usage instructions.
+- [x] T018: [P] Create the `YAML_GUIDE.md` documentation file.
+- [x] T019: Add error handling to the CLI for file not found and invalid YAML errors.
+- [x] T020: [P] Write unit tests for error handling in `tests/test_cli.py`.
+- [x] T021: Finalize the `README.md` with updated usage instructions.
 
 ## Dependencies
 - Setup (T001-T003) must be done first.
