@@ -41,9 +41,9 @@
 - Paths shown below assume single project structure as defined in `plan.md`.
 
 ## Phase 3.1: Setup
-- [ ] T001: Create the directory structure: `src/keycloak_generator`, `tests/`.
-- [ ] T002: Create a `pyproject.toml` file defining the project metadata and dependencies: `click`, `PyYAML`, and `pytest`.
-- [ ] T003: [P] Configure `ruff` for linting in `pyproject.toml`.
+- [x] T001: Create the directory structure: `src/keycloak_generator`, `tests/`.
+- [x] T002: Create a `pyproject.toml` file defining the project metadata and dependencies: `click`, `PyYAML`, and `pytest`.
+- [x] T003: [P] Configure `ruff` for linting in `pyproject.toml`.
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
