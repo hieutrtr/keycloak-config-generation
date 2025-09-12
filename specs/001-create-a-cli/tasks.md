@@ -47,13 +47,13 @@
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T004: [P] Write failing tests for the `Credential` data model in `tests/test_models.py`.
-- [ ] T005: [P] Write failing tests for the `User` data model in `tests/test_models.py`.
-- [ ] T006: [P] Write failing tests for the `Role` data model in `tests/test_models.py`.
-- [ ] T007: [P] Write failing tests for the `Client` data model in `tests/test_models.py`.
-- [ ] T008: [P] Write failing tests for the `Realm` data model in `tests/test_models.py`.
-- [ ] T009: Write a failing integration test in `tests/test_generator.py` that uses a sample YAML file and asserts that the generated JSON is correct.
-- [ ] T010: Write a failing test for the CLI in `tests/test_cli.py` using `click.testing.CliRunner`.
+- [x] T004: [P] Write failing tests for the `Credential` data model in `tests/test_models.py`.
+- [x] T005: [P] Write failing tests for the `User` data model in `tests/test_models.py`.
+- [x] T006: [P] Write failing tests for the `Role` data model in `tests/test_models.py`.
+- [x] T007: [P] Write failing tests for the `Client` data model in `tests/test_models.py`.
+- [x] T008: [P] Write failing tests for the `Realm` data model in `tests/test_models.py`.
+- [x] T009: Write a failing integration test in `tests/test_generator.py` that uses a sample YAML file and asserts that the generated JSON is correct.
+- [x] T010: Write a failing test for the CLI in `tests/test_cli.py` using `click.testing.CliRunner`.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 - [ ] T011: [P] Implement the `Credential` data model in `src/keycloak_generator/models.py`.
