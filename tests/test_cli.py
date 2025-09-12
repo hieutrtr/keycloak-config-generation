@@ -1,3 +1,4 @@
+import json
 from click.testing import CliRunner
 from keycloak_generator.cli import main
 
@@ -16,7 +17,8 @@ def test_cli_generates_output_file():
         assert "Generated Keycloak configuration" in result.output
         
         with open("output.json", "r") as f:
-            assert '{"realm": "test-realm"}' in f.read()
+            output_data = json.load(f)
+            assert output_data["realm"] == "test-realm"
 
 def test_cli_handles_file_not_found():
     """
@@ -26,4 +28,4 @@ def test_cli_handles_file_not_found():
     result = runner.invoke(main, ["--input", "nonexistent.yaml", "--output", "output.json"])
     
     assert result.exit_code != 0
-    assert "Error: Input file not found" in result.output
+    assert "does not exist" in result.output

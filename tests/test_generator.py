@@ -23,14 +23,29 @@ def test_generate_json_from_yaml():
         "realm": "my-test-realm",
         "enabled": True,
         "clients": [
-            {"clientId": "my-app", "secret": "secret"}
+            {
+                "clientId": "my-app",
+                "secret": "secret",
+                "publicClient": False,
+                "redirectUris": [],
+            }
         ],
+        "roles": [],
         "users": [
             {
                 "username": "testuser",
+                "enabled": True,
+                "email": None,
+                "firstName": None,
+                "lastName": None,
                 "credentials": [
-                    {"type": "password", "value": "password"}
-                ]
+                    {
+                        "type": "password",
+                        "value": "password",
+                        "temporary": False,
+                    }
+                ],
+                "realmRoles": [],
             }
         ]
     }, indent=2)

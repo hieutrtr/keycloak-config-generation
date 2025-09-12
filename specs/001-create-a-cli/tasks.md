@@ -56,13 +56,13 @@
 - [x] T010: Write a failing test for the CLI in `tests/test_cli.py` using `click.testing.CliRunner`.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T011: [P] Implement the `Credential` data model in `src/keycloak_generator/models.py`.
-- [ ] T012: [P] Implement the `User` data model in `src/keycloak_generator/models.py`.
-- [ ] T013: [P] Implement the `Role` data model in `src/keycloak_generator/models.py`.
-- [ ] T014: [P] Implement the `Client` data model in `src/keycloak_generator/models.py`.
-- [ ] T015: [P] Implement the `Realm` data model in `src/keycloak_generator/models.py`.
-- [ ] T016: Implement the YAML to JSON conversion logic in `src/keycloak_generator/generator.py`.
-- [ ] T017: Implement the CLI command in `src/keycloak_generator/cli.py` using `click`.
+- [x] T011: [P] Implement the `Credential` data model in `src/keycloak_generator/models.py`.
+- [x] T012: [P] Implement the `User` data model in `src/keycloak_generator/models.py`.
+- [x] T013: [P] Implement the `Role` data model in `src/keycloak_generator/models.py`.
+- [x] T014: [P] Implement the `Client` data model in `src/keycloak_generator/models.py`.
+- [x] T015: [P] Implement the `Realm` data model in `src/keycloak_generator/models.py`.
+- [x] T016: Implement the YAML to JSON conversion logic in `src/keycloak_generator/generator.py`.
+- [x] T017: Implement the CLI command in `src/keycloak_generator/cli.py` using `click`.
 
 ## Phase 3.4: Polish
 - [ ] T018: [P] Create the `YAML_GUIDE.md` documentation file.

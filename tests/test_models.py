@@ -48,7 +48,7 @@ def test_user_creation():
     user = User(**user_data)
     assert user.username == user_data["username"]
     assert user.email == user_data["email"]
-    assert user.realmRoles == user_data["realmRoles"]
+    assert user.realm_roles == user_data["realmRoles"]
 
 
 def test_role_creation():
@@ -72,7 +72,7 @@ def test_client_creation():
         "redirectUris": ["http://localhost/"],
     }
     client = Client(**client_data)
-    assert client.clientId == client_data["clientId"]
+    assert client.client_id == client_data["clientId"]
     assert client.secret == client_data["secret"]
 
 
