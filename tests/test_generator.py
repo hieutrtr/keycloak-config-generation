@@ -19,7 +19,6 @@ def test_generate_json_from_yaml():
             value: "password"
     """
 
-    # The expected JSON now includes the new empty lists from the Realm model
     expected_data = {
         "realm": "my-test-realm",
         "enabled": True,
@@ -29,6 +28,8 @@ def test_generate_json_from_yaml():
                 "secret": "secret",
                 "publicClient": False,
                 "redirectUris": [],
+                "defaultClientScopes": [],
+                "optionalClientScopes": [],
             }
         ],
         "roles": [],
@@ -50,6 +51,9 @@ def test_generate_json_from_yaml():
         "userFederationProviders": [],
         "identityProviders": [],
         "authenticationFlows": [],
+        "clientScopes": [],
+        "requiredActions": [],
+        "smtpServer": {},
     }
 
     generated_json = generate_json(yaml.safe_load(yaml_content))
@@ -118,6 +122,7 @@ def test_advanced_realm_generation():
     identityProviders:
       - alias: "google"
         providerId: "google"
+        config: {}
         mappers:
           - name: "google-email-mapper"
             identityProviderMapper: "oidc-user-attribute-idp-mapper"
