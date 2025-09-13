@@ -90,3 +90,56 @@ def test_realm_creation():
     realm = Realm(**realm_data)
     assert realm.realm == realm_data["realm"]
     assert realm.enabled is True
+
+
+def test_group_creation():
+    """
+    Tests that a Group object can be created with the correct attributes.
+    """
+    group_data = {"name": "admins", "realmRoles": ["admin"]}
+    group = Group(**group_data)
+    assert group.name == group_data["name"]
+    assert group.realm_roles == group_data["realmRoles"]
+
+
+def test_user_federation_provider_creation():
+    """
+    Tests that a UserFederationProvider object can be created.
+    """
+    provider_data = {
+        "providerName": "ldap",
+        "config": {"bindDn": "cn=admin,dc=example,dc=org"},
+    }
+    provider = UserFederationProvider(**provider_data)
+    assert provider.provider_name == provider_data["providerName"]
+    assert provider.config["bindDn"] == "cn=admin,dc=example,dc=org"
+
+
+def test_identity_provider_creation():
+    """
+    Tests that an IdentityProvider object can be created.
+    """
+    provider_data = {
+        "alias": "google",
+        "providerId": "google",
+        "config": {"clientId": "id", "clientSecret": "secret"},
+    }
+    provider = IdentityProvider(**provider_data)
+    assert provider.alias == provider_data["alias"]
+    assert provider.provider_id == provider_data["providerId"]
+
+
+def test_authentication_flow_creation():
+    """
+    Tests that an AuthenticationFlow object can be created.
+    """
+    flow_data = {
+        "alias": "My Flow",
+        "providerId": "basic-flow",
+        "authenticationExecutions": [
+            {"authenticator": "auth-form", "requirement": "REQUIRED"}
+        ],
+    }
+    flow = AuthenticationFlow(**flow_data)
+    assert flow.alias == flow_data["alias"]
+    assert len(flow.authentication_executions) == 1

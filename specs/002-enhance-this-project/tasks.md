@@ -42,11 +42,11 @@
 
 ## Phase 3.1: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.2
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T001: [P] Write failing tests for the `Group` data model in `tests/test_models.py`.
-- [ ] T002: [P] Write failing tests for the `UserFederationProvider` data model in `tests/test_models.py`.
-- [ ] T003: [P] Write failing tests for the `IdentityProvider` data model in `tests/test_models.py`.
-- [ ] T004: [P] Write failing tests for the `AuthenticationExecution` and `AuthenticationFlow` data models in `tests/test_models.py`.
-- [ ] T005: Update the integration test in `tests/test_generator.py` to include assertions for groups, user federation, identity providers, auth flows, and extended realm settings, using the `enhanced-realm.yaml` from the quickstart. This test must fail.
+- [x] T001: [P] Write failing tests for the `Group` data model in `tests/test_models.py`.
+- [x] T002: [P] Write failing tests for the `UserFederationProvider` data model in `tests/test_models.py`.
+- [x] T003: [P] Write failing tests for the `IdentityProvider` data model in `tests/test_models.py`.
+- [x] T004: [P] Write failing tests for the `AuthenticationExecution` and `AuthenticationFlow` data models in `tests/test_models.py`.
+- [x] T005: Update the integration test in `tests/test_generator.py` to include assertions for groups, user federation, identity providers, auth flows, and extended realm settings, using the `enhanced-realm.yaml` from the quickstart. This test must fail.
 
 ## Phase 3.2: Core Implementation (ONLY after tests are failing)
 - [ ] T006: [P] Implement the `Group` data model in `src/keycloak_generator/models.py`.
