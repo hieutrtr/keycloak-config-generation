@@ -6,7 +6,9 @@ This tool allows you to define your Keycloak realms, clients, roles, and users i
 
 ## Features
 
--   Define Keycloak realms, clients, roles, and users in YAML.
+-   Define Keycloak realms, clients, roles, users, and groups in YAML.
+-   Configure advanced features like User Federation, Identity Providers, and custom Authentication Flows.
+-   Manage realm-level settings like token lifespans.
 -   Generate Keycloak-compatible JSON configuration files.
 -   Command-line interface for easy integration into scripts and workflows.
 -   Schema validation to help you catch errors in your configuration.
@@ -26,20 +28,39 @@ This tool allows you to define your Keycloak realms, clients, roles, and users i
 ## Usage
 
 1.  **Create a YAML configuration file.**
-    See the [YAML_GUIDE.md](YAML_GUIDE.md) for a detailed explanation of the format and a full example. Here is a basic example:
+    See the [YAML_GUIDE.md](YAML_GUIDE.md) for a detailed explanation of all available options. Here is an example showcasing some of the features:
 
     ```yaml
     # my-realm.yaml
-    realm: my-new-realm
+    realm: my-cool-realm
     enabled: true
+    accessTokenLifespan: 600
+
     clients:
-      - clientId: my-app
-        secret: "super-secret"
+      - clientId: my-web-app
+        secret: "a-very-secret-string"
+
     users:
-      - username: testuser
+      - username: "alice"
+        firstName: "Alice"
         credentials:
           - type: "password"
-            value: "password"
+            value: "password123"
+        realmRoles:
+          - "admin"
+
+    groups:
+      - name: "developers"
+        realmRoles:
+          - "viewer"
+
+    identityProviders:
+      - alias: "github"
+        providerId: "github"
+        enabled: true
+        config:
+          clientId: "your-github-client-id"
+          clientSecret: "your-github-client-secret"
     ```
 
 2.  **Run the CLI to generate the JSON file.**
@@ -50,7 +71,7 @@ This tool allows you to define your Keycloak realms, clients, roles, and users i
     ```
 
 3.  **Import the generated JSON into Keycloak.**
-    In the Keycloak Admin Console, go to "Realm Settings" -> "Action" -> "Import" and select the generated `my-realm.json` file.
+    In the Keycloak Admin Console, you can create a new realm and select the generated `my-realm.json` file to import the configuration.
 
 ## Development
 

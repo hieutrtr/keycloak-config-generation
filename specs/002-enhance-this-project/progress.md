@@ -29,5 +29,9 @@ This document tracks the progress made on the "enhance this project with more Re
     - Updated the core logic in `src/keycloak_generator/generator.py` to handle the enhanced configuration.
     - Ensured all tests are passing after the implementation.
 
+### 5. Polish
+- **Phase 3.3 Complete**: The final polish phase is complete.
+    - Updated `YAML_GUIDE.md` to include documentation for all the new configuration options.
+
 ## Next Steps
-The project is now ready to begin the "Polish" phase (Phase 3.3) as outlined in `tasks.md`.
+All tasks for this feature are complete. The branch is ready for review and merging.

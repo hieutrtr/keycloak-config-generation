@@ -57,7 +57,7 @@
 - [x] T011: Update the generator logic in `src/keycloak_generator/generator.py` to process the new configuration sections and include them in the final JSON output.
 
 ## Phase 3.3: Polish
-- [ ] T012: [P] Update the `YAML_GUIDE.md` to document the new configuration options for groups, user federation, identity providers, authentication flows, and realm settings.
+- [x] T012: [P] Update the `YAML_GUIDE.md` to document the new configuration options for groups, user federation, identity providers, authentication flows, and realm settings.
 
 ## Dependencies
 - Model tests (T001-T004) must be done before model implementation (T006-T009).

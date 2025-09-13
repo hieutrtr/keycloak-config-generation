@@ -13,6 +13,12 @@ The top-level object in the YAML file represents a single Keycloak Realm.
 | `clients` | List of [Client](#client) | No | `[]` | A list of clients to create in the realm. |
 | `roles` | List of [Role](#role) | No | `[]` | A list of realm-level roles to create. |
 | `users` | List of [User](#user) | No | `[]` | A list of users to create in the realm. |
+| `groups` | List of [Group](#group) | No | `[]` | A list of groups to create in the realm. |
+| `userFederationProviders` | List of [UserFederationProvider](#userfederationprovider) | No | `[]` | A list of user federation providers (e.g., LDAP). |
+| `identityProviders` | List of [IdentityProvider](#identityprovider) | No | `[]` | A list of identity providers (e.g., Google, GitHub). |
+| `authenticationFlows` | List of [AuthenticationFlow](#authenticationflow) | No | `[]` | A list of custom authentication flows. |
+| `accessTokenLifespan` | Integer | No | `null` | The lifespan of access tokens in seconds. |
+| `ssoSessionIdleTimeout` | Integer | No | `null` | The idle timeout for SSO sessions in seconds. |
 
 ---
 
@@ -68,11 +74,73 @@ A credential represents a user's secret, like a password.
 
 ---
 
+### Group
+
+A group is a collection of users. Roles can be assigned to groups.
+
+| Field | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `name` | String | Yes | | The name of the group. |
+| `realmRoles` | List of String | No | `[]` | A list of realm-level roles to assign to the group. |
+
+---
+
+### UserFederationProvider
+
+Connects to an external user database like LDAP or Active Directory.
+
+| Field | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `providerName` | String | Yes | | The type of provider (e.g., "ldap"). |
+| `config` | Dictionary | Yes | | Provider-specific configuration key-value pairs. |
+
+---
+
+### IdentityProvider
+
+Integrates with an external identity provider like Google or GitHub for social login.
+
+| Field | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `alias` | String | Yes | | A unique alias for the provider. |
+| `providerId` | String | Yes | | The ID of the provider (e.g., "google"). |
+| `enabled` | Boolean | No | `true` | Whether the provider is enabled. |
+| `config` | Dictionary | Yes | | Provider-specific configuration (e.g., client ID and secret). |
+
+---
+
+### AuthenticationFlow
+
+Defines a custom sequence of steps for user authentication.
+
+| Field | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `alias` | String | Yes | | The name of the flow. |
+| `providerId` | String | Yes | | The type of flow (e.g., "basic-flow"). |
+| `description` | String | No | `null` | A description of the flow. |
+| `authenticationExecutions` | List of [AuthenticationExecution](#authenticationexecution) | No | `[]` | The steps in the flow. |
+
+---
+
+### AuthenticationExecution
+
+Represents a single step within an authentication flow.
+
+| Field | Type | Required | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `authenticator` | String | Yes | | The authenticator to use (e.g., "auth-username-password-form"). |
+| `requirement` | String | Yes | | The requirement level ("REQUIRED", "ALTERNATIVE", "DISABLED"). |
+
+---
+
 ## Full Example
 
 ```yaml
 realm: my-cool-realm
 enabled: true
+accessTokenLifespan: 600
+ssoSessionIdleTimeout: 3600
+
 clients:
   - clientId: my-web-app
     secret: "a-very-secret-string"
@@ -108,4 +176,27 @@ users:
         value: "another-password"
     realmRoles:
       - "viewer"
+
+groups:
+  - name: "developers"
+    realmRoles:
+      - "viewer"
+
+identityProviders:
+  - alias: "github"
+    providerId: "github"
+    enabled: true
+    config:
+      clientId: "your-github-client-id"
+      clientSecret: "your-github-client-secret"
+
+authenticationFlows:
+  - alias: "Browser with OTP"
+    providerId: "basic-flow"
+    description: "Adds an OTP step to the standard browser flow."
+    authenticationExecutions:
+      - authenticator: "auth-username-password-form"
+        requirement: "REQUIRED"
+      - authenticator: "conditional-otp-form"
+        requirement: "REQUIRED"
 ```
