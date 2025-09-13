@@ -13,12 +13,12 @@
 
 ## Phase 3.1: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.2
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T001: [P] Write failing tests for the `ClientScope` and `ProtocolMapper` data models in `tests/test_models.py`.
-- [ ] T002: [P] Write failing tests for the `RequiredAction` data model in `tests/test_models.py`.
-- [ ] T003: [P] Write failing tests for the `IdentityProviderMapper` data model in `tests/test_models.py`.
-- [ ] T004: Update the tests for the `Role` data model in `tests/test_models.py` to include assertions for composite roles (`clientRole` and `composites` fields). This test must fail.
-- [ ] T005: Update the tests for the `IdentityProvider` data model in `tests/test_models.py` to include assertions for the new `mappers` field. This test must fail.
-- [ ] T006: Create a new, failing integration test in `tests/test_generator.py` named `test_advanced_realm_generation`. This test must use the `production-realm.yaml` from the quickstart guide and assert that the generated JSON correctly includes all advanced features (composite roles, client scopes, mappers, brute force settings, required actions, SMTP config, etc.).
+- [x] T001: [P] Write failing tests for the `ClientScope` and `ProtocolMapper` data models in `tests/test_models.py`.
+- [x] T002: [P] Write failing tests for the `RequiredAction` data model in `tests/test_models.py`.
+- [x] T003: [P] Write failing tests for the `IdentityProviderMapper` data model in `tests/test_models.py`.
+- [x] T004: Update the tests for the `Role` data model in `tests/test_models.py` to include assertions for composite roles (`clientRole` and `composites` fields). This test must fail.
+- [x] T005: Update the tests for the `IdentityProvider` data model in `tests/test_models.py` to include assertions for the new `mappers` field. This test must fail.
+- [x] T006: Create a new, failing integration test in `tests/test_generator.py` named `test_advanced_realm_generation`. This test must use the `production-realm.yaml` from the quickstart guide and assert that the generated JSON correctly includes all advanced features (composite roles, client scopes, mappers, brute force settings, required actions, SMTP config, etc.).
 
 ## Phase 3.2: Core Implementation (ONLY after tests are failing)
 - [ ] T007: [P] Implement the `ClientScope` and `ProtocolMapper` data models in `src/keycloak_generator/models.py`.

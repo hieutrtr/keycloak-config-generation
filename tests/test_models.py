@@ -8,6 +8,10 @@ from keycloak_generator.models import (
     UserFederationProvider,
     IdentityProvider,
     AuthenticationFlow,
+    ClientScope,
+    ProtocolMapper,
+    RequiredAction,
+    IdentityProviderMapper,
 )
 
 
@@ -69,6 +73,25 @@ def test_role_creation():
     role = Role(**role_data)
     assert role.name == role_data["name"]
     assert role.description == role_data["description"]
+
+
+def test_composite_role_creation():
+    """
+    Tests that a Role object can be created with composite role definitions.
+    """
+    role_data = {
+        "name": "composite-role",
+        "clientRole": True,
+        "composites": {
+            "realm": ["realm-admin"],
+            "client": {"my-client": ["client-role"]},
+        },
+    }
+    role = Role(**role_data)
+    assert role.name == role_data["name"]
+    assert role.client_role is True
+    assert role.composites["realm"] == ["realm-admin"]
+    assert role.composites["client"]["my-client"] == ["client-role"]
 
 
 def test_client_creation():
@@ -139,6 +162,27 @@ def test_identity_provider_creation():
     assert provider.provider_id == provider_data["providerId"]
 
 
+def test_identity_provider_with_mappers():
+    """
+    Tests that an IdentityProvider can be created with mappers.
+    """
+    provider_data = {
+        "alias": "google",
+        "providerId": "google",
+        "config": {"clientId": "id", "clientSecret": "secret"},
+        "mappers": [
+            {
+                "name": "email-mapper",
+                "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+                "config": {"syncMode": "FORCE"},
+            }
+        ],
+    }
+    provider = IdentityProvider(**provider_data)
+    assert len(provider.mappers) == 1
+    assert provider.mappers[0].name == "email-mapper"
+
+
 def test_authentication_flow_creation():
     """
     Tests that an AuthenticationFlow object can be created.
@@ -153,3 +197,51 @@ def test_authentication_flow_creation():
     flow = AuthenticationFlow(**flow_data)
     assert flow.alias == flow_data["alias"]
     assert len(flow.authentication_executions) == 1
+
+
+def test_client_scope_and_protocol_mapper_creation():
+    """
+    Tests that ClientScope and ProtocolMapper objects can be created.
+    """
+    scope_data = {
+        "name": "custom-scope",
+        "protocol": "openid-connect",
+        "protocolMappers": [
+            {
+                "name": "custom-mapper",
+                "protocol": "openid-connect",
+                "protocolMapper": "oidc-usermodel-attribute-mapper",
+                "config": {"claim.name": "custom_claim"},
+            }
+        ],
+    }
+    scope = ClientScope(**scope_data)
+    assert scope.name == "custom-scope"
+    assert len(scope.protocol_mappers) == 1
+    assert scope.protocol_mappers[0].name == "custom-mapper"
+
+
+def test_required_action_creation():
+    """
+    Tests that a RequiredAction object can be created.
+    """
+    action_data = {"alias": "UPDATE_PASSWORD", "enabled": True, "defaultAction": False}
+    action = RequiredAction(**action_data)
+    assert action.alias == "UPDATE_PASSWORD"
+    assert action.enabled is True
+    assert action.default_action is False
+
+
+def test_identity_provider_mapper_creation():
+    """
+    Tests that an IdentityProviderMapper object can be created.
+    """
+    mapper_data = {
+        "name": "email-mapper",
+        "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+        "config": {"syncMode": "FORCE"},
+    }
+    mapper = IdentityProviderMapper(**mapper_data)
+    assert mapper.name == "email-mapper"
+    assert mapper.identity_provider_mapper == "oidc-user-attribute-idp-mapper"
+    assert mapper.config["syncMode"] == "FORCE"
