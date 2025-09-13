@@ -1,4 +1,14 @@
-from keycloak_generator.models import Credential, User, Role, Client, Realm
+from keycloak_generator.models import (
+    Credential,
+    User,
+    Role,
+    Client,
+    Realm,
+    Group,
+    UserFederationProvider,
+    IdentityProvider,
+    AuthenticationFlow,
+)
 
 
 def test_credential_creation():

@@ -22,5 +22,12 @@ This document tracks the progress made on the "enhance this project with more Re
     - Updated the integration test in `tests/test_generator.py` to include a failing test case for the enhanced realm configurations.
     - Confirmed that all new tests fail as expected.
 
+### 4. Core Implementation
+- **Phase 3.2 Complete**: All tasks in the "Core Implementation" phase are now complete.
+    - Implemented the new data models in `src/keycloak_generator/models.py`.
+    - Updated the main `Realm` model to include the new configuration sections.
+    - Updated the core logic in `src/keycloak_generator/generator.py` to handle the enhanced configuration.
+    - Ensured all tests are passing after the implementation.
+
 ## Next Steps
-The project is now ready to begin the "Core Implementation" phase (Phase 3.2) as outlined in `tasks.md`.
+The project is now ready to begin the "Polish" phase (Phase 3.3) as outlined in `tasks.md`.

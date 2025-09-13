@@ -18,8 +18,9 @@ def test_generate_json_from_yaml():
           - type: "password"
             value: "password"
     """
-    
-    expected_json_str = json.dumps({
+
+    # The expected JSON now includes the new empty lists from the Realm model
+    expected_data = {
         "realm": "my-test-realm",
         "enabled": True,
         "clients": [
@@ -35,9 +36,6 @@ def test_generate_json_from_yaml():
             {
                 "username": "testuser",
                 "enabled": True,
-                "email": None,
-                "firstName": None,
-                "lastName": None,
                 "credentials": [
                     {
                         "type": "password",
@@ -47,11 +45,16 @@ def test_generate_json_from_yaml():
                 ],
                 "realmRoles": [],
             }
-        ]
-    }, indent=2)
+        ],
+        "groups": [],
+        "userFederationProviders": [],
+        "identityProviders": [],
+        "authenticationFlows": [],
+    }
 
     generated_json = generate_json(yaml.safe_load(yaml_content))
-    assert json.loads(generated_json) == json.loads(expected_json_str)
+    assert json.loads(generated_json) == expected_data
+
 
 def test_generate_json_with_enhanced_config():
     """
@@ -69,8 +72,11 @@ def test_generate_json_with_enhanced_config():
     identityProviders:
       - alias: "google"
         providerId: "google"
+        config:
+          "clientId": "test-id"
     authenticationFlows:
       - alias: "My Custom Flow"
+        providerId: "basic-flow"
         authenticationExecutions:
           - authenticator: "auth-username-password-form"
             requirement: "REQUIRED"

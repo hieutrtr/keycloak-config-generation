@@ -49,12 +49,12 @@
 - [x] T005: Update the integration test in `tests/test_generator.py` to include assertions for groups, user federation, identity providers, auth flows, and extended realm settings, using the `enhanced-realm.yaml` from the quickstart. This test must fail.
 
 ## Phase 3.2: Core Implementation (ONLY after tests are failing)
-- [ ] T006: [P] Implement the `Group` data model in `src/keycloak_generator/models.py`.
-- [ ] T007: [P] Implement the `UserFederationProvider` data model in `src/keycloak_generator/models.py`.
-- [ ] T008: [P] Implement the `IdentityProvider` data model in `src/keycloak_generator/models.py`.
-- [ ] T009: [P] Implement the `AuthenticationExecution` and `AuthenticationFlow` data models in `src/keycloak_generator/models.py`.
-- [ ] T010: Update the `Realm` data model in `src/keycloak_generator/models.py` to include the new entities and the extended realm settings.
-- [ ] T011: Update the generator logic in `src/keycloak_generator/generator.py` to process the new configuration sections and include them in the final JSON output.
+- [x] T006: [P] Implement the `Group` data model in `src/keycloak_generator/models.py`.
+- [x] T007: [P] Implement the `UserFederationProvider` data model in `src/keycloak_generator/models.py`.
+- [x] T008: [P] Implement the `IdentityProvider` data model in `src/keycloak_generator/models.py`.
+- [x] T009: [P] Implement the `AuthenticationExecution` and `AuthenticationFlow` data models in `src/keycloak_generator/models.py`.
+- [x] T010: Update the `Realm` data model in `src/keycloak_generator/models.py` to include the new entities and the extended realm settings.
+- [x] T011: Update the generator logic in `src/keycloak_generator/generator.py` to process the new configuration sections and include them in the final JSON output.
 
 ## Phase 3.3: Polish
 - [ ] T012: [P] Update the `YAML_GUIDE.md` to document the new configuration options for groups, user federation, identity providers, authentication flows, and realm settings.
