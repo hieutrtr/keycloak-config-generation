@@ -1,0 +1,14 @@
+# 06-authentication-flows.yaml
+# Defines a custom authentication flow, for example, to enforce OTP.
+
+realm: "custom-auth-flow-realm"
+
+authenticationFlows:
+  - alias: "Browser with OTP"
+    providerId: "basic-flow"
+    description: "Adds a mandatory OTP step to the standard browser flow."
+    authenticationExecutions:
+      - authenticator: "auth-username-password-form"
+        requirement: "REQUIRED"
+      - authenticator: "conditional-otp-form"
+        requirement: "REQUIRED"

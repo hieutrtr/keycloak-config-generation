@@ -1,0 +1,5 @@
+# 01-basic-realm.yaml
+# A minimal example defining a new realm.
+
+realm: "basic-realm"
+enabled: true

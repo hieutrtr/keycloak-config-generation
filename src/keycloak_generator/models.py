@@ -64,6 +64,7 @@ class Realm(BaseModel):
     enabled: bool = True
     access_token_lifespan: Optional[int] = Field(None, alias="accessTokenLifespan")
     sso_session_idle_timeout: Optional[int] = Field(None, alias="ssoSessionIdleTimeout")
+    first_broker_login_flow_alias: Optional[str] = Field(None, alias="firstBrokerLoginFlowAlias")
     clients: List[Client] = []
     roles: List[Role] = []
     users: List[User] = []

@@ -1,0 +1,48 @@
+# 09-multi-idp-linking-corrected.yaml
+# Configures multiple identity providers and sets up the authentication flow
+# to correctly link new accounts to existing users with the same email.
+
+realm: "multi-idp-linking-realm"
+# This is the crucial setting that tells Keycloak to use our custom flow
+# when a user logs in for the first time via an identity provider.
+firstBrokerLoginFlowAlias: "first broker login" # Use the built-in flow alias
+
+identityProviders:
+  - alias: "google"
+    providerId: "google"
+    enabled: true
+    # This setting is important. It tells this IdP to use the realm's
+    # "First Broker Login" flow.
+    firstBrokerLoginFlowAlias: "first broker login"
+    config:
+      clientId: "your-google-client-id"
+      clientSecret: "your-google-client-secret"
+
+  - alias: "github"
+    providerId: "github"
+    enabled: true
+    firstBrokerLoginFlowAlias: "first broker login"
+    config:
+      clientId: "your-github-client-id"
+      clientSecret: "your-github-client-secret"
+
+  - alias: "microsoft"
+    providerId: "microsoft"
+    enabled: true
+    firstBrokerLoginFlowAlias: "first broker login"
+    config:
+      clientId: "your-microsoft-client-id"
+      clientSecret: "your-microsoft-client-secret"
+
+# Note: For this to work, you don't need to define the "first broker login"
+# flow yourself if you're using the default behavior. Keycloak has a
+# built-in flow for this. You would only define it here if you needed to
+# customize it further (e.g., by adding extra steps).
+#
+# The default "first broker login" flow contains executions like:
+# 1. "Review Profile" - Lets the user confirm their profile details.
+# 2. "Create User If Unique" - Creates a new user if no conflict exists.
+# 3. "Verify Existing Account by Email" - Sends an email to link accounts.
+#
+# For the email verification to work, you must also have configured
+# SMTP settings for the realm (not shown in this example).

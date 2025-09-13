@@ -1,0 +1,46 @@
+# 08-multi-idp-linking.yaml
+# Configures multiple identity providers (Google, GitHub, Microsoft)
+# and sets up an authentication flow to automatically link new accounts
+# to existing users with the same email address.
+
+realm: "multi-idp-linking-realm"
+# This is the crucial setting that tells Keycloak to use our custom flow
+# when a user logs in for the first time via an identity provider.
+firstBrokerLoginFlowAlias: "Link Accounts by Email"
+
+identityProviders:
+  - alias: "google"
+    providerId: "google"
+    enabled: true
+    config:
+      clientId: "your-google-client-id"
+      clientSecret: "your-google-client-secret"
+
+  - alias: "github"
+    providerId: "github"
+    enabled: true
+    config:
+      clientId: "your-github-client-id"
+      clientSecret: "your-github-client-secret"
+
+  - alias: "microsoft"
+    providerId: "microsoft"
+    enabled: true
+    config:
+      clientId: "your-microsoft-client-id"
+      clientSecret: "your-microsoft-client-secret"
+
+authenticationFlows:
+  # This flow is a copy of the built-in "first broker login" flow,
+  # but with an added execution to handle automatic account linking.
+  - alias: "Link Accounts by Email"
+    providerId: "basic-flow"
+    description: "Automatically links new IdP logins to existing accounts with the same email."
+    authenticationExecutions:
+      # This step attempts to find an existing user with the same email
+      # as the one provided by the IdP and links the accounts.
+      - authenticator: "idp-auto-link"
+        requirement: "ALTERNATIVE"
+      # If no existing user is found, this step creates a new one.
+      - authenticator: "create-user-if-unique"
+        requirement: "ALTERNATIVE"

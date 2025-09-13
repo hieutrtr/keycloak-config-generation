@@ -1,38 +1,40 @@
 {
-  "realm": "my-basic-realm",
+  "realm": "multi-idp-linking-realm",
   "enabled": true,
-  "clients": [
+  "firstBrokerLoginFlowAlias": "first broker login",
+  "clients": [],
+  "roles": [],
+  "users": [],
+  "groups": [],
+  "userFederationProviders": [],
+  "identityProviders": [
     {
-      "clientId": "my-first-client",
-      "secret": "a-secret-that-should-be-changed",
-      "publicClient": false,
-      "redirectUris": []
-    }
-  ],
-  "roles": [
-    {
-      "name": "default-user",
-      "description": "A basic user role."
-    }
-  ],
-  "users": [
-    {
-      "username": "jdoe",
+      "alias": "google",
+      "providerId": "google",
       "enabled": true,
-      "email": "john.doe@example.com",
-      "firstName": "John",
-      "lastName": "Doe",
-      "credentials": [
-        {
-          "type": "password",
-          "value": "changeme",
-          "temporary": true
-        }
-      ],
-      "realmRoles": [
-        "default-user",
-        "offline_access"
-      ]
+      "config": {
+        "clientId": "your-google-client-id",
+        "clientSecret": "your-google-client-secret"
+      }
+    },
+    {
+      "alias": "github",
+      "providerId": "github",
+      "enabled": true,
+      "config": {
+        "clientId": "your-github-client-id",
+        "clientSecret": "your-github-client-secret"
+      }
+    },
+    {
+      "alias": "microsoft",
+      "providerId": "microsoft",
+      "enabled": true,
+      "config": {
+        "clientId": "your-microsoft-client-id",
+        "clientSecret": "your-microsoft-client-secret"
+      }
     }
-  ]
+  ],
+  "authenticationFlows": []
 }

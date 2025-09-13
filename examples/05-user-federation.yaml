@@ -1,0 +1,25 @@
+# 05-user-federation.yaml
+# Connects to an external LDAP user directory.
+
+realm: "ldap-federation-realm"
+
+userFederationProviders:
+  - providerName: "ldap"
+    config:
+      # General
+      "enabled": "true"
+      "priority": "0"
+      # Connection and Authentication
+      "connectionUrl": "ldap://ldap.example.com:389"
+      "bindType": "simple"
+      "bindDn": "cn=binder,dc=example,dc=com"
+      "bindCredential": "super-secret-password"
+      # LDAP Searching
+      "usersDn": "ou=users,dc=example,dc=com"
+      "usernameLDAPAttribute": "uid"
+      "rdnLDAPAttribute": "uid"
+      "uuidLDAPAttribute": "entryUUID"
+      "userObjectClasses": "inetOrgPerson, organizationalPerson"
+      # Sync Settings
+      "importEnabled": "true"
+      "syncRegistrations": "false"

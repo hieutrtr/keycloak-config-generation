@@ -1,0 +1,52 @@
+# 07-full-configuration.yaml
+# A comprehensive example combining many features.
+
+realm: "production-realm"
+enabled: true
+accessTokenLifespan: 900 # 15 minutes
+ssoSessionIdleTimeout: 1800 # 30 minutes
+
+clients:
+  - clientId: "my-main-app"
+    secret: "prod-secret-key"
+    redirectUris:
+      - "https://prod.app.com/callback"
+
+roles:
+  - name: "app-admin"
+  - name: "data-scientist"
+
+users:
+  - username: "admin"
+    firstName: "Admin"
+    lastName: "User"
+    credentials:
+      - type: "password"
+        value: "very-strong-initial-password"
+        temporary: true
+    realmRoles:
+      - "app-admin"
+
+groups:
+  - name: "Analytics Team"
+    realmRoles:
+      - "data-scientist"
+
+identityProviders:
+  - alias: "google"
+    providerId: "google"
+    enabled: true
+    config:
+      clientId: "prod-google-client-id"
+      clientSecret: "prod-google-client-secret"
+      hostedDomain: "mycompany.com"
+
+authenticationFlows:
+  - alias: "Browser with OTP"
+    providerId: "basic-flow"
+    description: "Adds a mandatory OTP step to the standard browser flow."
+    authenticationExecutions:
+      - authenticator: "auth-username-password-form"
+        requirement: "REQUIRED"
+      - authenticator: "conditional-otp-form"
+        requirement: "REQUIRED"

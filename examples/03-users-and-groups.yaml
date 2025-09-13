@@ -1,0 +1,33 @@
+# 03-users-and-groups.yaml
+# Creates users with credentials and organizes them into groups.
+
+realm: "users-and-groups-realm"
+
+users:
+  - username: "alice"
+    enabled: true
+    email: "alice@example.com"
+    firstName: "Alice"
+    lastName: "Smith"
+    credentials:
+      - type: "password"
+        value: "password123"
+        temporary: true # User must change password on first login
+    realmRoles:
+      - "admin"
+      - "viewer"
+  - username: "bob"
+    firstName: "Bob"
+    credentials:
+      - type: "password"
+        value: "another-password"
+    realmRoles:
+      - "viewer"
+
+groups:
+  - name: "developers"
+    realmRoles:
+      - "viewer"
+  - name: "administrators"
+    realmRoles:
+      - "admin"

@@ -1,0 +1,20 @@
+# 04-identity-providers.yaml
+# Configures external identity providers for social login.
+
+realm: "social-login-realm"
+
+identityProviders:
+  - alias: "github"
+    providerId: "github"
+    enabled: true
+    config:
+      clientId: "your-github-client-id"
+      clientSecret: "your-github-client-secret"
+  - alias: "google"
+    providerId: "google"
+    enabled: true
+    config:
+      clientId: "your-google-client-id"
+      clientSecret: "your-google-client-secret"
+      # Additional Google-specific options can be added here
+      # e.g., hostedDomain: "mycompany.com"
