@@ -1,0 +1,24 @@
+# 13-identity-provider-mappers.yaml
+# Configures an Identity Provider to automatically link accounts based on email.
+
+realm: "idp-linking-realm"
+
+identityProviders:
+  - alias: "google"
+    providerId: "google"
+    enabled: true
+    config:
+      clientId: "your-google-client-id"
+      clientSecret: "your-google-client-secret"
+    # 1. Add a mapper to the identity provider.
+    # This mapper tells Keycloak how to handle incoming user information.
+    mappers:
+      # This specific mapper links the external account to a Keycloak
+      # user by matching the 'email' claim from the Google token
+      # to the 'email' attribute of an existing Keycloak user.
+      - name: "Link by Email"
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          "user.attribute": "email" # The Keycloak user attribute
+          "claim": "email"          # The claim from the external token
+          "syncMode": "FORCE"       # Overwrite the attribute on every login

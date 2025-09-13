@@ -1,0 +1,79 @@
+# 14-multi-provider-email-linking.yaml
+# A comprehensive example showing how to configure multiple identity providers
+# (Google, GitHub, Microsoft) and set up mappers for each to automatically
+# link new logins to existing Keycloak accounts with the same email address.
+
+realm: "multi-provider-linking-realm"
+enabled: true
+
+identityProviders:
+  # 1. Google Identity Provider
+  - alias: "google"
+    providerId: "google"
+    enabled: true
+    config:
+      clientId: "your-google-client-id"
+      clientSecret: "your-google-client-secret"
+      # Request the 'email' and 'profile' scopes to get user information.
+      defaultScope: "openid profile email"
+      # Use Google's public keys to verify token signatures.
+      useJwksUrl: "true"
+    mappers:
+      - name: "Google - Link by Email"
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          "user.attribute": "email"
+          "claim": "email"
+          "syncMode": "FORCE"
+
+  # 2. GitHub Identity Provider
+  - alias: "github"
+    providerId: "github"
+    enabled: true
+    config:
+      clientId: "your-github-client-id"
+      clientSecret: "your-github-client-secret"
+      # The 'user:email' scope is required to get the user's primary email from GitHub.
+      defaultScope: "user:email"
+    mappers:
+      - name: "GitHub - Link by Email"
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          "user.attribute": "email"
+          # The claim containing the email in GitHub's user info endpoint is 'email'.
+          "claim": "email"
+          "syncMode": "FORCE"
+
+  # 3. Microsoft Identity Provider
+  - alias: "microsoft"
+    providerId: "microsoft"
+    enabled: true
+    config:
+      clientId: "your-microsoft-client-id"
+      clientSecret: "your-microsoft-client-secret"
+      # For Microsoft, you often need to specify your tenant ID.
+      # Or use 'common' for multi-tenant apps.
+      tenantId: "your-azure-ad-tenant-id"
+      # Standard OIDC scopes for Microsoft.
+      defaultScope: "openid profile email"
+    mappers:
+      - name: "Microsoft - Link by Email"
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          "user.attribute": "email"
+          "claim": "email"
+          "syncMode": "FORCE"
+
+# 4. Client Application
+# A client is required for users to log into the realm. This is the application
+# that will be protected by Keycloak.
+clients:
+  - clientId: "my-web-app"
+    secret: "a-secure-client-secret"
+    publicClient: false
+    # The redirect URIs are where Keycloak will send the user back to
+    # after a successful login. These must match exactly what your application uses.
+    redirectUris:
+      - "http://localhost:3000/callback"
+      - "https://my-app.com/callback"
+

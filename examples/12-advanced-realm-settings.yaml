@@ -1,0 +1,37 @@
+# 12-advanced-realm-settings.yaml
+# Showcases various advanced, top-level realm settings.
+
+realm: "advanced-settings-realm"
+
+# 1. Brute Force Protection
+# Locks out users after a certain number of consecutive login failures.
+bruteForceProtected: true
+failureFactor: 5 # Number of failures before temporary lockout
+maxFailureWaitSeconds: 900 # 15 minutes max wait time
+waitIncrementSeconds: 60 # Wait time increases by 60s after each failure
+
+# 2. Token Lifespan Settings
+# Fine-grained control over session and token timeouts (in seconds).
+ssoSessionIdleTimeout: 1800 # 30 minutes
+ssoSessionMaxLifespan: 36000 # 10 hours
+offlineSessionIdleTimeout: 2592000 # 30 days
+
+# 3. Required Actions
+# Actions that users are required to complete after their first login.
+requiredActions:
+  - alias: "UPDATE_PASSWORD"
+    enabled: true
+  - alias: "CONFIGURE_TOTP" # Configure a 2FA application
+    enabled: true
+    defaultAction: true # Make this a default action for all new users
+
+# 4. SMTP Server for sending emails (e.g., for password reset)
+smtpServer:
+  host: "smtp.example.com"
+  port: 587
+  from: "Keycloak <noreply@example.com>"
+  auth: "true"
+  user: "smtp-user"
+  password: "smtp-password"
+  ssl: "true"
+  starttls: "true"

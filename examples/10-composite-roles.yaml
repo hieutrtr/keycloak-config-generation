@@ -1,0 +1,28 @@
+# 10-composite-roles.yaml
+# Defines a composite role that inherits permissions from other roles.
+
+realm: "composite-roles-realm"
+
+clients:
+  - clientId: "reporting-app"
+    secret: "secret"
+
+roles:
+  # 1. Define the base roles that will be included in the composite role.
+  - name: "read-only"
+    description: "Grants read-only access to resources."
+  - name: "reporting-user"
+    description: "Grants access to the reporting-app."
+    clientRole: true # This is a client role for 'reporting-app'
+
+  # 2. Define the composite role.
+  - name: "auditor"
+    description: "Auditors can read all resources and access the reporting app."
+    composites:
+      # Inherits a realm-level role
+      realm:
+        - "read-only"
+      # Inherits a client-level role from the 'reporting-app' client
+      client:
+        reporting-app:
+          - "reporting-user"

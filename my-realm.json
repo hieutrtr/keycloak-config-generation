@@ -1,7 +1,6 @@
 {
-  "realm": "multi-idp-linking-realm",
+  "realm": "multi-provider-linking-realm",
   "enabled": true,
-  "firstBrokerLoginFlowAlias": "first broker login",
   "clients": [],
   "roles": [],
   "users": [],
@@ -14,8 +13,21 @@
       "enabled": true,
       "config": {
         "clientId": "your-google-client-id",
-        "clientSecret": "your-google-client-secret"
-      }
+        "clientSecret": "your-google-client-secret",
+        "defaultScope": "openid profile email",
+        "useJwksUrl": "true"
+      },
+      "mappers": [
+        {
+          "name": "Google - Link by Email",
+          "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+          "config": {
+            "user.attribute": "email",
+            "claim": "email",
+            "syncMode": "FORCE"
+          }
+        }
+      ]
     },
     {
       "alias": "github",
@@ -23,8 +35,20 @@
       "enabled": true,
       "config": {
         "clientId": "your-github-client-id",
-        "clientSecret": "your-github-client-secret"
-      }
+        "clientSecret": "your-github-client-secret",
+        "defaultScope": "user:email"
+      },
+      "mappers": [
+        {
+          "name": "GitHub - Link by Email",
+          "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+          "config": {
+            "user.attribute": "email",
+            "claim": "email",
+            "syncMode": "FORCE"
+          }
+        }
+      ]
     },
     {
       "alias": "microsoft",
@@ -32,9 +56,25 @@
       "enabled": true,
       "config": {
         "clientId": "your-microsoft-client-id",
-        "clientSecret": "your-microsoft-client-secret"
-      }
+        "clientSecret": "your-microsoft-client-secret",
+        "tenantId": "your-azure-ad-tenant-id",
+        "defaultScope": "openid profile email"
+      },
+      "mappers": [
+        {
+          "name": "Microsoft - Link by Email",
+          "identityProviderMapper": "oidc-user-attribute-idp-mapper",
+          "config": {
+            "user.attribute": "email",
+            "claim": "email",
+            "syncMode": "FORCE"
+          }
+        }
+      ]
     }
   ],
-  "authenticationFlows": []
+  "authenticationFlows": [],
+  "clientScopes": [],
+  "requiredActions": [],
+  "smtpServer": {}
 }

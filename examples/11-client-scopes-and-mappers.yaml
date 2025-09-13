@@ -1,0 +1,30 @@
+# 11-client-scopes-and-mappers.yaml
+# Defines a custom client scope with a protocol mapper to add a custom claim to tokens.
+
+realm: "client-scopes-realm"
+
+# 1. Define the client scope and its mappers.
+clientScopes:
+  - name: "organization-info"
+    description: "Scope for adding organization claims to the token."
+    protocol: "openid-connect"
+    protocolMappers:
+      - name: "organization-id-mapper"
+        protocol: "openid-connect"
+        protocolMapper: "oidc-usermodel-attribute-mapper"
+        config:
+          "user.attribute": "organizationId" # The user attribute to map from
+          "claim.name": "org_id"              # The name of the claim in the token
+          "jsonType.label": "String"
+          "id.token.claim": "true"
+          "access.token.claim": "true"
+          "userinfo.token.claim": "true"
+
+# 2. Define a client and assign the new scope to it.
+clients:
+  - clientId: "my-app"
+    secret: "secret"
+    # Assign the custom scope as a default scope for this client.
+    # Any user authenticating for this client will get the 'org_id' claim.
+    defaultClientScopes:
+      - "organization-info"
